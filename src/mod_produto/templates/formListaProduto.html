@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Produto</title>
-</head>
+{% block title %}Produto{% endblock %}
 
-<body>
-    <h1>Rota da página de Produto da nossa WEB APP</h1>
-    <h1>Uso de render_template</h1>
-</body>
-
-</html>
+{% block content %}
+<h1>Produto</h1>
+<p class="important">Seja bem vindo!</p>
+<ul>
+<li><a href="{{ url_for('index.formListaIndex') }}">Home</a></li>
+</ul>
+{% endblock %}
