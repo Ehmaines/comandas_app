@@ -1,0 +1,67 @@
+{% extends "base.html" %} {% block title %}Cadastro de Cliente{% endblock %} {%
+block content %}
+<h1>Cadastro de Cliente</h1>
+<form action="" method="POST">
+    <div class="form-group mt-3">
+        <label for="nome">Nome</label>
+        <input
+            type="text"
+            class="form-control"
+            id="nome"
+            name="nome"
+            required
+            autofocus
+            maxlength="100"
+        />
+    </div>
+
+    <div class="form-group mt-3">
+        <label for="cpf">CPF</label>
+        <input type="text" class="form-control" id="cpf" name="cpf" required maxlength="14" />
+    </div>
+
+    <div class="form-group mt-3">
+        <label for="telefone">Telefone</label>
+        <input
+            type="tel"
+            class="form-control"
+            id="telefone"
+            name="telefone"
+            required
+            maxlength="15"
+        />
+    </div>
+
+    <div class="form-group mt-3">
+        <label for="compra_fiado">Compra Fiado</label>
+        <input
+            type="text"
+            class="form-control"
+            id="compra_fiado"
+            name="compra_fiado"
+        />
+    </div>
+
+    <div class="form-group mt-3">
+        <label for="dia_fiado">Dia Fiado</label>
+        <input
+            type="text"
+            class="form-control"
+            id="dia_fiado"
+            name="dia_fiado"
+        />
+    </div>
+
+    <div class="form-group mt-3">
+        <label for="senha">Senha</label>
+        <input type="password" class="form-control" id="senha" name="senha" />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">
+        Cadastrar Cliente
+    </button>
+</form>
+
+<script src="../../static/helper/masks.js"></script>
+<script src="../../static/helper/maxLenght.js"></script>
+{% endblock %}
