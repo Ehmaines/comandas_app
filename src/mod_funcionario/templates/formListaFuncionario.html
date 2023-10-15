@@ -1,14 +1,41 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Funcionários</title>
-</head>
+{% block title %}Funcionários{% endblock %}
 
-<body>
-    <h1>Rota da página de Funcionários da nossa WEB APP</h1>
-    <h1>Uso de render_template</h1>
-</body>
+{% block content %}
+    <h1>Funcionários</h1>
+    <form action="{{ url_for('funcionario.formFuncionario') }}" method="GET">
+        <button type="submit" name="formNovo" class="btn btn-primary">Novo Funcionário</button>
+    </form>
 
-</html>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Matrícula</th>
+                <th scope="col">CPF</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">Grupo</th>
+                <th scope="col">Senha</th>
+                <th scope="col">Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Nome do Funcionário</td>
+                <td>12345</td>
+                <td>123.456.789-01</td>
+                <td>(11) 1234-5678</td>
+                <td>Grupo A</td>
+                <td>********</td>
+                <td>
+                    <a href="#"><i class="fas fa-edit"></i></a>
+                    <a href="#"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            <!-- Você pode adicionar mais linhas de funcionários aqui -->
+        </tbody>
+    </table>
+{% endblock %}

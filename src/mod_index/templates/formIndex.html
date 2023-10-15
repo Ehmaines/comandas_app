@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
-</head>
+{% block title %}Home{% endblock %}
 
-<body>
-    <h1>Rota da página de Index da nossa WEB APP</h1>
-    <h1>Uso de render_template</h1>
-</body>
+{% block content %}
+    <h1 class="display-4">Home</h1>
 
-</html>
+    <ul class="list-group mt-3">
+    <p class="lead">Este é um exemplo de estilo usando Bootstrap.</p>
+        <li class="list-group-item"><i class="fas fa-home me-2"></i><a href="{{ url_for('index.formListaIndex') }}">Home</a></li>
+        <li class="list-group-item"><i class="fa fa-id-card me-2"></i><a href="{{ url_for('funcionario.formListaFuncionario') }}">Funcionário</a></li>
+        <li class="list-group-item"><i class="fa fa-users me-2"></i><a href="{{ url_for('cliente.formListaCliente') }}">Cliente</a></li>
+        <li class="list-group-item"><i class="fa fa-shopping-basket me-2"></i><a href="{{ url_for('produto.formListaProduto') }}">Produto</a></li>
+    </ul>
+{% endblock %}

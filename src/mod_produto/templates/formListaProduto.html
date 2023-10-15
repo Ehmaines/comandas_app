@@ -1,14 +1,37 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Produto</title>
-</head>
+{% block title %}Produtos{% endblock %}
 
-<body>
-    <h1>Rota da página de Produto da nossa WEB APP</h1>
-    <h1>Uso de render_template</h1>
-</body>
+{% block content %}
+    <h1>Produtos</h1>
+    <form action="{{ url_for('produto.formProduto') }}" method="GET">
+        <button type="submit" name="formNovo" class="btn btn-primary">Novo Produto</button>
+    </form>
 
-</html>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Foto</th>
+                <th scope="col">Valor Unitário</th>
+                <th scope="col">Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Nome do Produto</td>
+                <td>Descrição do Produto</td>
+                <td><img src="imagem.jpg" alt="Foto do Produto" width="50"></td>
+                <td>R$ 9.99</td>
+                <td>
+                    <a href="#"><i class="fas fa-edit"></i></a>
+                    <a href="#"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            <!-- Você pode adicionar mais linhas de produtos aqui -->
+        </tbody>
+    </table>
+{% endblock %}
