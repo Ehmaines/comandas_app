@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1>Cadastro de Produto</h1>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form name="formAdicionar" id="formAdicionar" action="{{ url_for('produto.insert') }}" enctype="multipart/form-data" method="POST">
         <div class="form-group">
             <label for="nome">Nome</label>
             <input type="text" class="form-control" id="nome" name="nome" required maxlength="100" autofocus>

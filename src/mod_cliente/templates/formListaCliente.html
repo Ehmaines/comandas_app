@@ -5,7 +5,7 @@
 {% block content %}
     <h1 class="display-4">Clientes</h1>
     <form action="{{ url_for('cliente.formCliente') }}" method="GET">
-        <button type="submit" name="formNovo" class="btn btn-primary mb-3">Novo Cliente</button>
+        <button class="btn btn-primary mb-3">Novo Cliente</button>
     </form>
 
     <div class="table-responsive">
@@ -23,20 +23,23 @@
                 </tr>
             </thead>
             <tbody>
+                {% if result %}
+                {% for row in result %}
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Nome do Cliente</td>
-                    <td>123.456.789-01</td>
-                    <td>(11) 1234-5678</td>
-                    <td>R$ 50.00</td>
-                    <td>15</td>
-                    <td>********</td>
+                    <th scope="row">{{ row['id_cliente'] }}</th>
+                    <td>{{ row['nome'] }}</td>
+                    <td>{{ row['cpf'] }}</td>
+                    <td>{{ row['telefone'] }}</td>
+                    <td>{{ row['compra_fiado'] }}</td>
+                    <td>{{ row['dia_fiado'] }}</td>
+                    <td>{{ row['senha'] }}</td>
                     <td>
                         <a href="#"><i class="fas fa-edit"></i></a>
                         <a href="#"><i class="fas fa-trash"></i></a>
                     </td>
                 </tr>
-                <!-- Você pode adicionar mais linhas de clientes aqui -->
+                {% endfor %}
+                {% endif %}
             </tbody>
         </table>
     </div>
