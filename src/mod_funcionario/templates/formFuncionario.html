@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1 class="display-4">Cadastro de Funcionário</h1>
-    <form action="" method="POST">
+    <form name="formAdicionar" id="formAdicionar" action="{{ url_for('funcionario.insert') }}" method="POST">
         <div class="form-group">
             <label for="nome">Nome</label>
             <input type="text" class="form-control" id="nome" name="nome" required autofocus>
@@ -28,9 +28,9 @@
         <div class="form-group">
             <label for="grupo">Grupo</label>
             <select class="form-control" id="grupo" name="grupo" required>
-                <option value="Grupo A">Grupo A</option>
-                <option value="Grupo B">Grupo B</option>
-                <option value="Grupo C">Grupo C</option>
+                <option value="1">Atendente</option>
+                <option value="2">Caixa</option>
+                <option value="3">Administrador</option>
             </select>
         </div>
 

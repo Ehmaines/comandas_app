@@ -5,7 +5,7 @@
 {% block content %}
     <h1>Produtos</h1>
     <form action="{{ url_for('produto.formProduto') }}" method="GET">
-        <button type="submit" name="formNovo" class="btn btn-primary">Novo Produto</button>
+        <button type="submit" class="btn btn-primary">Novo Produto</button>
     </form>
 
     <table class="table table-striped">
@@ -20,18 +20,21 @@
             </tr>
         </thead>
         <tbody>
+            {% if result %}
+            {% for row in result %}
             <tr>
-                <th scope="row">1</th>
-                <td>Nome do Produto</td>
-                <td>Descrição do Produto</td>
-                <td><img src="imagem.jpg" alt="Foto do Produto" width="50"></td>
-                <td>R$ 9.99</td>
+                <th scope="row">{{ row['id_produto'] }}</th>
+                <td>{{ row['nome'] }}</td>
+                <td>{{ row['descricao'] }}</td>
+                <td><img src="{{ row['foto'] }}" alt="Foto do Produto" width="50"></td>
+                <td>{{ row['valor_unitario'] }}</td>
                 <td>
                     <a href="#"><i class="fas fa-edit"></i></a>
                     <a href="#"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
-            <!-- Você pode adicionar mais linhas de produtos aqui -->
+            {% endfor %}
+            {% endif %}
         </tbody>
     </table>
 {% endblock %}

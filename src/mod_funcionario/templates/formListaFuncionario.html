@@ -3,9 +3,10 @@
 {% block title %}Funcionários{% endblock %}
 
 {% block content %}
-    <h1>Funcionários</h1>
+
+<h1>Funcionários</h1>
     <form action="{{ url_for('funcionario.formFuncionario') }}" method="GET">
-        <button type="submit" name="formNovo" class="btn btn-primary">Novo Funcionário</button>
+        <button type="submit" class="btn btn-primary">Novo Funcionário</button>
     </form>
 
     <table class="table table-striped">
@@ -22,19 +23,23 @@
             </tr>
         </thead>
         <tbody>
+            {% if result %}
+            {% for row in result %}
             <tr>
-                <th scope="row">1</th>
-                <td>Nome do Funcionário</td>
-                <td>12345</td>
-                <td>123.456.789-01</td>
-                <td>(11) 1234-5678</td>
-                <td>Grupo A</td>
-                <td>********</td>
+                <th scope="row"> {{ row['id_funcionario'] }}</th>
+                <td> {{ row['nome'] }}</td>
+                <td> {{ row['matricula'] }}</td>
+                <td> {{ row['cpf'] }}</td>
+                <td> {{ row['telefone'] }}</td>
+                <td> {{ row['grupo'] }}</td>
+                <td> {{ row['senha'] }}</td>
                 <td>
                     <a href="#"><i class="fas fa-edit"></i></a>
                     <a href="#"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
+            {% endfor %}
+            {% endif %}
             <!-- Você pode adicionar mais linhas de funcionários aqui -->
         </tbody>
     </table>
