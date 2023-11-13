@@ -2,31 +2,53 @@
 
 {% block title %}Cadastro de Produto{% endblock %}
 
+{# ajusta as variáveis conforme novo ou edit #}
+{% set id = result[0].id_produto if result else '0' %}
+{% set nome = result[0].nome if result else '' %}
+{% set descricao = result[0].descricao if result else '' %}
+{% set foto = result[0].foto if result else '' %}
+{% set valor_unitario = result[0].valor_unitario if result else '' %}
 {% block content %}
-    <h1>Cadastro de Produto</h1>
-    <form name="formAdicionar" id="formAdicionar" action="{{ url_for('produto.insert') }}" enctype="multipart/form-data" method="POST">
+<div class="container">
+    <form name="{{ 'formEditar' if result else 'formAdicionar' }}"
+        id="{{ 'formEditar' if result else 'formAdicionar' }}"
+        action="{{ url_for('produto.edit') if result else url_for('produto.insert') }}" method="POST"  
+        enctype="multipart/form-data">
+        <h1>Produto - {{ "%s: %s" % ('Editar Registro', id) if result else 'Novo' }}</h1>
+
+        <div class="form-group">
+            <label for="id">Id</label>
+            <input type="text" name="id" id="id" value="{{ id }}" placeholder="Id" readonly>
+        </div>
+
         <div class="form-group">
             <label for="nome">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" required maxlength="100" autofocus>
+            <input type="text" class="form-control focus-highlight" name="nome" id="nome" value="{{ nome }}"
+                placeholder="Nome do Produto" maxlength="50" autofocus required>
         </div>
 
-        <div class="form-group mt-3">
+        <div class="form-group">
             <label for="descricao">Descrição</label>
-            <textarea class="form-control" id="descricao" name="descricao" rows="4" required maxlength="200"></textarea>
+            <textarea class="form-control focus-highlight" name="descricao" id="descricao" value="{{ descricao }}"
+                placeholder="Descrição do Produto" rows="4" maxlength="100" required></textarea>
         </div>
 
-        <div class="form-group mt-3">
-            <label for="foto">Foto</label>
-            <input type="file" class="form-control-file" id="foto" name="foto">
+        <div class="form-group">
+            <label for="quantidade">Valor Unitario</label>
+            <input type="text" class="form-control focus-highlight" name="valor_unitario" id="valor_unitario"
+                value="{{ valor_unitario }}" placeholder="Valor Unitario" maxlength="10" required>
         </div>
 
-        <div class="form-group mt-3">
-            <label for="valor_unitario">Valor Unitário</label>
-            <input type="text" class="form-control" id="valor_unitario" name="valor_unitario" required >
+        <div class="form-group">
+            <label for="foto">Foto</label></br>
+            <input type="file" class="form-control-file" name="foto" id="foto" value="{{ foto }}" accept="image/*">
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3">Cadastrar Produto</button>
+
+        <button type="submit" class="btn btn-primary" name="salvarProduto"><i class="fas fa-save"></i>
+            Salvar</button>
     </form>
+</div>
     
     <script src="../../static/helper/maxLenght.js"></script>
 {% endblock %}
