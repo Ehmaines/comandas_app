@@ -1,47 +1,65 @@
 {% extends "base.html" %}
 
-{% block title %}Cadastro de Funcionário{% endblock %}
+{% block title %}Funcionário{% endblock %}
+
+{# ajusta as variáveis conforme novo ou edit #}
+{% set id = result.id_funcionario if result else '0' %}
+{% set nome = result.nome if result else '' %}
+{% set matricula = result.matricula if result else '' %}
+{% set cpf = result.cpf if result else '' %}
+{% set telefone = result.telefone if result else '' %}
+{% set grupo = result.grupo if result else '' %}
+{% set senha = result.senha if result else '' %}
 
 {% block content %}
-    <h1 class="display-4">Cadastro de Funcionário</h1>
-    <form name="formAdicionar" id="formAdicionar" action="{{ url_for('funcionario.insert') }}" method="POST">
-        <div class="form-group">
-            <label for="nome">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" required autofocus>
-        </div>
+<h1>Funcionário - {{ "%s: %s" % ('Editar Registro', id) if result else 'Novo' }}</h1>
+<form name="{{ 'formEditar' if result else 'formAdicionar' }}"
+    id="{{ 'formEditar' if result else 'formAdicionar' }}"
+    action="{{ url_for('funcionario.edit') if result else url_for('funcionario.insert') }}"
+    method="POST">
 
-        <div class="form-group">
-            <label for="matricula">Matrícula</label>
-            <input type="text" class="form-control" id="matricula" name="matricula" required>
-        </div>
+    <div class="form-group mt-2">
+        <label for="nome">Id</label>
+        <input type="text" class="form-control" name="id" id="id" value="{{ id }}">
+    </div>
 
-        <div class="form-group">
-            <label for="cpf">CPF</label>
-            <input type="text" class="form-control" id="cpf" name="cpf" required maxlength="14">
-        </div>
+    <div class="form-group mt-2">
+        <label for="nome">Nome</label>
+        <input type="text" class="form-control" id="nome" name="nome" value="{{ nome }}" required autofocus>
+    </div>
 
-        <div class="form-group">
-            <label for="telefone">Telefone</label>
-            <input type="text" class="form-control" id="telefone" name="telefone" required maxlength="15">
-        </div>
+    <div class="form-group mt-2">
+        <label for="matricula">Matrícula</label>
+        <input type="text" class="form-control" id="matricula" name="matricula" value="{{ matricula }}" required>
+    </div>
 
-        <div class="form-group">
-            <label for="grupo">Grupo</label>
-            <select class="form-control" id="grupo" name="grupo" required>
-                <option value="1">Atendente</option>
-                <option value="2">Caixa</option>
-                <option value="3">Administrador</option>
-            </select>
-        </div>
+    <div class="form-group mt-2">
+        <label for="cpf">CPF</label>
+        <input type="text" class="form-control" id="cpf" name="cpf" value="{{ cpf }}" required maxlength="14">
+    </div>
 
-        <div class="form-group">
-            <label for="senha">Senha</label>
-            <input type="password" class="form-control" id="senha" name="senha" required>
-        </div>
+    <div class="form-group mt-2">
+        <label for="telefone">Telefone</label>
+        <input type="text" class="form-control" id="telefone" name="telefone" value="{{ telefone }}" required maxlength="15">
+    </div>
 
-        <button type="submit" class="mt-3 btn btn-primary">Cadastrar</button>
-    </form>
-    
-    <script src="../../static/helper/masks.js"></script>
-    <script src="../../static/helper/maxLenght.js"></script>
+    <div class="form-group mt-2">
+        <label for="grupo">Grupo</label>
+        <select class="form-control" id="grupo" name="grupo" required>
+            <option value="1" {{ 'selected' if grupo == 0 else '' }}>Atendente</option>
+            <option value="2" {{ 'selected' if grupo == 1 else '' }}>Caixa</option>
+            <option value="3" {{ 'selected' if grupo == 2 else '' }}>Administrador</option>
+        </select>
+    </div>
+
+    <div class="form-group mt-2">
+        <label for="senha">Senha</label>
+        <input type="password" class="form-control" id="senha" name="senha" value="{{ senha }}" required>
+    </div>
+
+    <button type="submit" class="mt-3 btn btn-primary">Cadastrar</button>
+</form>
+
+<script src="../../static/helper/masks.js"></script>
+<script src="../../static/helper/maxLenght.js"></script>
 {% endblock %}
