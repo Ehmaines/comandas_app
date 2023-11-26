@@ -2,11 +2,13 @@ import base64
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 import requests
 from settings import HEADERS_API, ENDPOINT_PRODUTO
+from mod_login.login import validaSessao
 
 bp_produto = Blueprint('produto', __name__, url_prefix="/produto", template_folder='templates')
 
 ''' rotas dos formulários '''
 @bp_produto.route('/', methods=['GET', 'POST'])
+@validaSessao
 def formListaProduto():
     try:
         response = requests.get(ENDPOINT_PRODUTO, headers=HEADERS_API)
@@ -19,10 +21,12 @@ def formListaProduto():
         return render_template('formListaProduto.html', msgErro=e.args[0])
 
 @bp_produto.route('/form-produto/', methods=['GET'])
+@validaSessao
 def formProduto():
     return render_template('formProduto.html')
 
 @bp_produto.route("/form-edit-produto", methods=['POST'])
+@validaSessao
 def formEditProduto():
     try:
         id_produto = request.form['id']
@@ -41,6 +45,7 @@ def formEditProduto():
 
 
 @bp_produto.route('/insert', methods=['POST'])
+@validaSessao
 def insert():
     print("Caindo produto")
     try:
@@ -69,6 +74,7 @@ def insert():
         return render_template('formListaProduto.html', msgErro=e.args[0])
 
 @bp_produto.route('/edit', methods=['POST'])
+@validaSessao
 def edit():
     try:
         # dados enviados via FORM
@@ -92,6 +98,7 @@ def edit():
         return render_template('formListaProduto.html', msgErro=e.args[0])
     
 @bp_produto.route('/delete', methods=['POST'])
+@validaSessao
 def delete():
     try:
       # dados enviados via FORM
