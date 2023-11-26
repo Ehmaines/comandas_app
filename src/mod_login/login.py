@@ -20,12 +20,15 @@ def validaLogin():
         
         payload = {'cpf': cpf, 'senha':senha}
         response = requests.post(ENDPOINT_LOGIN, headers=HEADERS_API, json=payload)
+        print(response.status_code)
         result = response.json()
         
-        token = jwt.decode(result['access_token'],
+        if (result[1] != 200):
+            raise Exception(result[0])
+        
+        token = jwt.decode(result[0]['access_token'],
             "EmainesSecretKey",
             algorithms=["HS256"])
-        print(token)
         
         #print(result)
         if (cpf == token['cpf']):
@@ -37,6 +40,7 @@ def validaLogin():
             raise Exception("Falha de Login! Verifique seus dados e tente novamente!")
 
     except Exception as e:
+        print(e)
         return redirect(url_for('login.login', msgErro=e.args[0]))
 
 @bp_login.route("/logoff", methods=['GET'])
