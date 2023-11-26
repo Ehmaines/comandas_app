@@ -31,12 +31,9 @@ def formEditProduto():
     try:
         id_produto = request.form['id']
         response = requests.get(ENDPOINT_PRODUTO + id_produto, headers=HEADERS_API)
-        print(response.json)
         result = response.json()
-        print(result)
         if (response.status_code != 200):
             raise Exception(result[0])
-        print("Testee")
         
         # renderiza o form passando os dados retornados
         return render_template('formProduto.html', result=result[0])
@@ -47,7 +44,6 @@ def formEditProduto():
 @bp_produto.route('/insert', methods=['POST'])
 @validaSessao
 def insert():
-    print("Caindo produto")
     try:
         # dados enviados via FORM
         id_produto = 0
@@ -56,21 +52,15 @@ def insert():
         #foto = request.form['foto']
         valor_unitario = request.form['valor_unitario']
         # converte a foto em base64
-        print("fOTOO")
-        print(request.files['foto'])
-        print("Pos foto 1")
         foto = "data:" + request.files['foto'].content_type + ";base64," + str(base64.b64encode(request.files['foto'].read()), "utf-8")
-        print("Pos foto")
 
         # monta o JSON para envio a API
         payload = {'id_produto': id_produto, 'nome': nome, 'descricao': descricao, 'foto': foto, 'valor_unitario': valor_unitario}
         # executa o verbo POST da API e armazena seu retorno
         response = requests.post(ENDPOINT_PRODUTO, headers=HEADERS_API, json=payload)
         result = response.json()
-        print(result)
         return redirect(url_for('produto.formListaProduto', msg=result[0]))
     except Exception as e:
-        print(e.args[0])
         return render_template('formListaProduto.html', msgErro=e.args[0])
 
 @bp_produto.route('/edit', methods=['POST'])

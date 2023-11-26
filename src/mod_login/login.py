@@ -20,7 +20,6 @@ def validaLogin():
         
         payload = {'cpf': cpf, 'senha':senha}
         response = requests.post(ENDPOINT_LOGIN, headers=HEADERS_API, json=payload)
-        print(response.status_code)
         result = response.json()
         
         if (result[1] != 200):
@@ -30,7 +29,6 @@ def validaLogin():
             "EmainesSecretKey",
             algorithms=["HS256"])
         
-        #print(result)
         if (cpf == token['cpf']):
             session['login'] = token['nome']
             session['grupo'] = changeToGroupName(token['grupo'])
@@ -40,7 +38,6 @@ def validaLogin():
             raise Exception("Falha de Login! Verifique seus dados e tente novamente!")
 
     except Exception as e:
-        print(e)
         return redirect(url_for('login.login', msgErro=e.args[0]))
 
 @bp_login.route("/logoff", methods=['GET'])

@@ -94,7 +94,6 @@ def insert():
             raise Exception(result[0])
         return redirect(url_for('cliente.formListaCliente', msg=result[0]))
     except Exception as e:
-        print(e.args[0])
         return render_template('formListaCliente.html', msgErro=e.args[0])
     
 @bp_cliente.route('/delete', methods=['POST'])

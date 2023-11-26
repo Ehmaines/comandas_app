@@ -34,7 +34,6 @@ def formEditFuncionario():
         if (response.status_code != 200):
             raise Exception(result[0])
         
-        print(result[0])
         # renderiza o form passando os dados retornados
         return render_template('formFuncionario.html', result=result[0])
     except Exception as e:
@@ -97,7 +96,6 @@ def edit():
 @validaSessao
 def delete():
     try:
-        print("delete")
         id_funcionario = request.form['id_funcionario']
         
         # executa o verbo DELETE da API e armazena seu retorno
